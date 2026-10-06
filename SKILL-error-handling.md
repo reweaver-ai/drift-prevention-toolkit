@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-error-handling
+description: "Use when writing or reviewing error handling: try/catch, promise rejections, empty catches, fallbacks, retries, logging, or errors that are swallowed, hidden or leaked to users. Every failure visible, actionable and traceable."
+---
 
 # Skill: Error Handling — Fail Fast, Fail Loud, Fail Transparent
 

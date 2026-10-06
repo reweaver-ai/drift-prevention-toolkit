@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-type-safety
+description: "Use when writing or reviewing TypeScript: any types, type assertions and double casts, non-null assertions, untyped external or API data, @ts-ignore. Zero tolerance for unjustified any."
+---
 
 # Skill: Type Safety — Zero Tolerance for `any`
 

@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-data-truth
+description: "Use when code displays or returns data: dashboards, lists, defaults, placeholders, sample or mock data, hardcoded values, fallbacks for missing data. Nothing fake reaches users; missing data fails or renders nothing."
+---
 
 # Skill: Data Truth — Never Fake What Should Come From Real Data
 

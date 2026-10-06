@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-migration
+description: "Use when migrating or modernizing code: converting to TypeScript, upgrading a framework or library, replacing a dependency, or moving legacy code. Incremental steps that each add value and keep the code working."
+---
 
 # Skill: Migration — Convert Legacy Code Incrementally, Add Value Every Step
 

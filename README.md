@@ -1,7 +1,7 @@
 # DRIFT PREVENTION TOOLKIT : A GOVERNANCE FRAMEWORK FOR AI-ASSISTED DEVELOPMENT
 Battle-tested strategies to keep humans in control of AI-generated code quality
 
-**Version**: 1.0  
+**Version**: 1.3  
 **Purpose**: A portable, tool-agnostic set of prompts, rules, and skills that help AI coding assistants (Claude, Cursor, Copilot, etc.) produce production-grade software — not just code that "works."
 
 ## The Problem
@@ -62,7 +62,14 @@ See [`expansion-pack/README.md`](expansion-pack/README.md) and [`expansion-pack/
 ## Quick Start
 
 ### For Claude Code
-Copy `CLAUDE.md` → `CLAUDE.md` in your project root. Claude Code reads this automatically.
+Install the 14 skills and `CLAUDE.md` in one step:
+
+```bash
+./install-claude-skills.sh --project /path/to/your/project   # .claude/skills/ and CLAUDE.md in that project
+./install-claude-skills.sh --user                            # ~/.claude/skills/ and ~/.claude/CLAUDE.md, for every project
+```
+
+Each skill is a `SKILL-*.md` file with its expansion-pack patch applied, and each one says when to use it, so Claude Code invokes it on its own: `drift-toolkit-production-readiness` when you ask for a review or whether code is ready to ship, `drift-toolkit-security` when the work touches auth, input or secrets, and so on. `CLAUDE.md` lists all 14 and tells Claude Code to use them. The script never overwrites an existing file; if you already have a `CLAUDE.md`, add the toolkit's to it by hand, starting with its "Skills: Use Them" section.
 
 ### For Cursor
 Copy `cursor-rules.md` → `.cursorrules` in your project root.

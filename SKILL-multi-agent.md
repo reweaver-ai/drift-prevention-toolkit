@@ -1,3 +1,8 @@
+---
+name: drift-toolkit-multi-agent
+description: "Use when several AI agents or sub-agents work on one codebase at the same time, or before spawning parallel agents to edit code. One file, one writer."
+---
+
 # Skill: Multi-Agent Safety — One File, One Writer
 
 ## Core Principle

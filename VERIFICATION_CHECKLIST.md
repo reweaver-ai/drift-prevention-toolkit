@@ -1,3 +1,8 @@
+---
+name: drift-toolkit-verification-checklist
+description: "Use before declaring any coding task done, and when checking a change or review for completeness: a run-before-done checklist covering errors, types, security, data, tests, concurrency and leftovers."
+---
+
 # Verification Checklist — Run Before Done
 
 Use this checklist before completing ANY coding task. Code that fails verification must be fixed before completion.

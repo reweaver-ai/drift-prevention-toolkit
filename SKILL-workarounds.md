@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-workarounds
+description: "Use when a fix or existing code looks like a workaround: defensive checks that skip errors, fallback values that mask missing data, retries that hide failures, or a fix in the wrong layer. Fix root causes, not symptoms."
+---
 
 # Skill: Workarounds — Fix Root Causes, Not Symptoms
 

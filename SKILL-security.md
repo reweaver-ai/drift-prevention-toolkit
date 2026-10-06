@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-security
+description: "Use when reviewing or writing anything security-sensitive: authentication, authorization, access control, user input, SQL or shell commands, secrets and keys, environment config, CORS, cookies, tokens, webhooks, file uploads, error messages shown to users."
+---
 
 # Skill: Security — Secure by Default
 

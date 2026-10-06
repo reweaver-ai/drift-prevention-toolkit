@@ -5,6 +5,30 @@
 
 ---
 
+## Skills: Use Them
+
+This toolkit installs 14 skills (`./install-claude-skills.sh`, see README). They hold the detail behind the rules below. **Invoke the matching skill before you start; do not work from memory.**
+
+- **Asked to review, audit or harden code, or whether it is ready to ship?** Start with `drift-toolkit-production-readiness`, then invoke each skill below that applies to what you find.
+- **Before you say any task is done:** `drift-toolkit-verification-checklist`.
+
+| Skill | Invoke when the work touches… |
+|-------|-------------------------------|
+| `drift-toolkit-security` | auth, access control, user input, SQL or shell, secrets, config, CORS, tokens, webhooks, uploads |
+| `drift-toolkit-error-handling` | try/catch, rejections, fallbacks, retries, logging, errors shown to users |
+| `drift-toolkit-workarounds` | defensive checks, fallback values, retries that hide failures, fixes in the wrong layer |
+| `drift-toolkit-type-safety` | `any`, casts, non-null assertions, untyped external data, `@ts-ignore` |
+| `drift-toolkit-data-truth` | displayed or returned data, defaults, placeholders, mock or sample data |
+| `drift-toolkit-architecture` | file and module structure, responsibilities, dependencies, third-party boundaries |
+| `drift-toolkit-maintainability` | long files or functions, naming, dead or stub code, duplication, stale docs |
+| `drift-toolkit-concurrency` | async, parallel or shared state, background jobs, optimistic UI |
+| `drift-toolkit-testing` | writing, fixing or reviewing tests, or code without tests |
+| `drift-toolkit-performance` | slow paths, repeated calls, large data, memory, bundle size |
+| `drift-toolkit-migration` | migrations, upgrades, TypeScript conversion, library replacement |
+| `drift-toolkit-multi-agent` | several agents or sub-agents editing one codebase |
+
+---
+
 ## 🚨 MANDATORY: Context-First Rule (NEVER SKIP)
 
 **BEFORE writing ANY code, you MUST:**

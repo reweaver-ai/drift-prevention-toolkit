@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-concurrency
+description: "Use when code is async, parallel or shared between requests: promises, background jobs, caches, optimistic UI, retries, read-then-write updates, or anything that could run twice at once. Finds race conditions and state that can be corrupted."
+---
 
 # Skill: Concurrency — Race Conditions, Async Safety, State Integrity
 

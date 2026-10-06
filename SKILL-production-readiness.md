@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-production-readiness
+description: "Use when asked whether code is ready to ship, or to review, audit or harden a codebase for production. Start here: an 11-dimension go/no-go checklist covering security, errors, data, testing, observability, configuration, accessibility and performance."
+---
 
 # Skill: Production Readiness — 11-Dimension Checklist
 

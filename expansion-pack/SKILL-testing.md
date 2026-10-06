@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-testing
+description: "Use when writing, reviewing or fixing tests, or when code has none: unit and integration tests, mocks, snapshots, flaky or order-dependent tests, untested error paths. Test behavior, not implementation."
+---
 
 # Skill: Testing — Test Behavior, Not Implementation
 

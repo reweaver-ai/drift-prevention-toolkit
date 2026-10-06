@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-performance
+description: "Use when code is slow or resource-heavy, or before optimizing: loops over large data, repeated network or database calls, N+1 queries, memory growth, bundle size. Measure first; never trade correctness for speed."
+---
 
 # Skill: Performance — Measure First, Optimize Second
 

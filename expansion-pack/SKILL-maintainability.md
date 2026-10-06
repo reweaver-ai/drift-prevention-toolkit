@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-maintainability
+description: "Use when reviewing code quality: long files or functions, deep nesting, vague names, dead or stub code, duplicated logic, magic numbers, leftover debug code, docs that no longer match the code."
+---
 
 # Skill: Maintainability — Keep Code Small, Named, and Free of Debris
 

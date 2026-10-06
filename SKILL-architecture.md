@@ -1,3 +1,7 @@
+---
+name: drift-toolkit-architecture
+description: "Use when designing, reviewing or refactoring code structure: oversized files or classes, mixed responsibilities, tangled or circular dependencies, third-party services without a boundary, or before adding a new module. One reason to change per unit."
+---
 
 # Skill: Architecture — Clean, Focused, Maintainable
 
