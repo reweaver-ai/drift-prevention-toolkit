@@ -11,6 +11,24 @@ description: "Use when asked whether code is ready to ship, or to review, audit 
 
 ---
 
+## How to Run This Review
+
+This checklist is the map, not the whole review. Each area below has a deep skill with the patterns to look for and the fixes that are acceptable. **Invoke each skill when you reach its area, before you judge that area.** Do not review an area from this checklist alone.
+
+1. **Security:** invoke `drift-toolkit-security`.
+2. **Error handling:** invoke `drift-toolkit-error-handling`, then `drift-toolkit-workarounds` for fallbacks and defensive code.
+3. **Types:** invoke `drift-toolkit-type-safety` for any TypeScript.
+4. **Data shown to users:** invoke `drift-toolkit-data-truth`.
+5. **Async or shared state:** invoke `drift-toolkit-concurrency`.
+6. **Architecture and code quality:** invoke `drift-toolkit-architecture`, then `drift-toolkit-maintainability`.
+7. **Performance:** invoke `drift-toolkit-performance`.
+8. **Testing:** invoke `drift-toolkit-testing`.
+9. **Before you report or finish:** invoke `drift-toolkit-verification-checklist` and check your own changes against it.
+
+Skip an area only when the codebase has nothing it covers, and say so in your report.
+
+---
+
 ## Quick Go/No-Go
 
 ### 🔴 NO-GO (Blockers)
@@ -35,6 +53,8 @@ description: "Use when asked whether code is ready to ship, or to review, audit 
 ---
 
 ## 1. Security
+
+> Invoke `drift-toolkit-security` before reviewing this area.
 
 ### Authentication & Authorization
 - [ ] Passwords hashed with bcrypt/Argon2 (NEVER plain text)
@@ -63,6 +83,8 @@ description: "Use when asked whether code is ready to ship, or to review, audit 
 
 ## 2. Architecture
 
+> Invoke `drift-toolkit-architecture` before reviewing this area.
+
 ### Code Organization
 - [ ] No file exceeds 2000 lines (target 300-400)
 - [ ] Single responsibility per module
@@ -80,6 +102,8 @@ description: "Use when asked whether code is ready to ship, or to review, audit 
 
 ## 3. Code Quality
 
+> Invoke `drift-toolkit-maintainability` before reviewing this area.
+
 ### Complexity
 - [ ] Functions: cyclomatic complexity < 15 (target < 10)
 - [ ] Functions: < 100 lines (target 20-30)
@@ -96,6 +120,8 @@ description: "Use when asked whether code is ready to ship, or to review, audit 
 ---
 
 ## 4. Performance
+
+> Invoke `drift-toolkit-performance` before reviewing this area.
 
 ### Algorithms & Data Structures
 - [ ] Appropriate data structures (Array vs Set vs Map)
@@ -118,6 +144,8 @@ description: "Use when asked whether code is ready to ship, or to review, audit 
 
 ## 5. Error Handling
 
+> Invoke `drift-toolkit-error-handling` before reviewing this area.
+
 - [ ] Fail fast, fail loud, fail transparent
 - [ ] Every error logged, surfaced to UI, AND thrown
 - [ ] Custom error types with context (ValidationError, NetworkError)
@@ -129,6 +157,8 @@ description: "Use when asked whether code is ready to ship, or to review, audit 
 ---
 
 ## 6. Testing
+
+> Invoke `drift-toolkit-testing` before reviewing this area.
 
 ### Coverage
 - [ ] Unit tests for business logic (target >80%)

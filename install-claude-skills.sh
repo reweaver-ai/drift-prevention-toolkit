@@ -3,6 +3,8 @@
 #
 #   ./install-claude-skills.sh --user            # ~/.claude/skills and ~/.claude/CLAUDE.md
 #   ./install-claude-skills.sh --project <dir>   # <dir>/.claude/skills and <dir>/CLAUDE.md
+#   add --with-hook to either                    # plus a Stop hook: a session that edited code
+#                                                # must invoke the verification checklist first
 #
 # Each skill is its SKILL-*.md with the matching PATCH-*.md applied, and the checklist,
 # production-readiness skill and CLAUDE.md get their blocks from PATCH-rules-additions.md:
@@ -11,13 +13,24 @@
 set -euo pipefail
 
 here="$(cd "$(dirname "$0")" && pwd)"
+usage() { echo "Usage: $0 --user | --project <dir>   [--with-hook]" >&2; exit 1; }
+with_hook=0
 case "${1:-}" in
-  --user) skills="$HOME/.claude/skills"; claude_md="$HOME/.claude/CLAUDE.md" ;;
+  --user)
+    dot="$HOME/.claude"; claude_md="$dot/CLAUDE.md"; hook_ref='$HOME/.claude/hooks'; shift ;;
   --project)
     [ -n "${2:-}" ] && [ -d "$2" ] || { echo "❌ --project needs an existing directory" >&2; exit 1; }
-    skills="$2/.claude/skills"; claude_md="$2/CLAUDE.md" ;;
-  *) echo "Usage: $0 --user | --project <dir>" >&2; exit 1 ;;
+    dot="$2/.claude"; claude_md="$2/CLAUDE.md"; hook_ref='$CLAUDE_PROJECT_DIR/.claude/hooks'; shift 2 ;;
+  *) usage ;;
 esac
+case "${1:-}" in
+  --with-hook) with_hook=1 ;;
+  "") ;;
+  *) usage ;;
+esac
+skills="$dot/skills"
+hook_file="$dot/hooks/drift-toolkit-require-checklist.sh"
+settings="$dot/settings.json"
 
 rules="$here/expansion-pack/PATCH-rules-additions.md"
 
@@ -66,6 +79,7 @@ for s in architecture error-handling multi-agent performance production-readines
   targets+=("$(skill_dir "$s")/SKILL.md")
 done
 [ -e "$claude_md" ] && existing_claude_md=1 || existing_claude_md=0
+if [ "$with_hook" = 1 ]; then targets+=("$hook_file"); fi
 for t in "${targets[@]}"; do
   if [ -e "$t" ]; then echo "❌ $t already exists; remove it or install elsewhere." >&2; exit 1; fi
 done
@@ -103,4 +117,24 @@ else
   mkdir -p "$(dirname "$claude_md")"
   compose_claude_md "$tmp/claude-sections.md" "$tmp/claude-checks.md" > "$claude_md"
   echo "✔ CLAUDE.md installed at $claude_md"
+fi
+
+if [ "$with_hook" = 1 ]; then
+  mkdir -p "$(dirname "$hook_file")"
+  cp "$here/hooks/drift-toolkit-require-checklist.sh" "$hook_file"
+  chmod +x "$hook_file"
+  hook_json='{
+  "hooks": {
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "\"'"$hook_ref"'/drift-toolkit-require-checklist.sh\"" } ] }
+    ]
+  }
+}'
+  if [ -e "$settings" ]; then
+    echo "ℹ️  $settings already exists, so it was left alone. Add this Stop hook to it by hand:"
+    echo "$hook_json"
+  else
+    printf '%s\n' "$hook_json" > "$settings"
+    echo "✔ Stop hook installed: $hook_file, registered in $settings"
+  fi
 fi
