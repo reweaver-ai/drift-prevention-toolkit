@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.1 — The checklist hook sees what a session did, not what it could do (October 2026)
+
+- **Fixed:** the Stop hook treated every session as one that edited code. A session transcript lists the tools available (`{"name":"Edit",…}`), and the hook matched those definitions instead of tool calls, so a read-only session was sent back to run the checklist. It now matches only tool calls (`"type":"tool_use"`).
+- **Fixed:** a mention of `drift-toolkit-verification-checklist` (for example in a skill listing) counted as having run it. Only an actual invocation of the skill counts now.
+- **Added:** `hooks/tests/test-require-checklist.sh`, run against transcripts in Claude Code's format, tool definitions included.
+
 ## 1.4 — The review opens every skill it needs, and the checklist is enforced (October 2026)
 
 In 1.3 the skills triggered, but a review opened only `drift-toolkit-production-readiness`: its checklist covers every area, and nothing told the model to go deeper.

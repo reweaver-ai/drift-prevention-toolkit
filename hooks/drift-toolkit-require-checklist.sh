@@ -21,7 +21,9 @@ if [ -z "$transcript" ] || [ ! -f "$transcript" ]; then
   exit 0
 fi
 
-grep -qE '"name":"(Edit|Write|MultiEdit|NotebookEdit)"' "$transcript" || exit 0
-grep -q '"skill":"drift-toolkit-verification-checklist"' "$transcript" && exit 0
+# Match tool CALLS, not the tool definitions every transcript also carries
+# ({"name":"Edit","description":…}): a call is recorded as "type":"tool_use".
+grep -qE '"type":"tool_use","id":"[^"]+","name":"(Edit|Write|MultiEdit|NotebookEdit)"' "$transcript" || exit 0
+grep -qE '"type":"tool_use","id":"[^"]+","name":"Skill","input":\{"skill":"drift-toolkit-verification-checklist"' "$transcript" && exit 0
 
 printf '%s\n' '{"decision":"block","reason":"You changed code in this session. Before finishing, invoke the drift-toolkit-verification-checklist skill, check your changes against it, and fix anything it finds."}'

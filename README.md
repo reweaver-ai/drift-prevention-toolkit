@@ -1,7 +1,7 @@
 # DRIFT PREVENTION TOOLKIT : A GOVERNANCE FRAMEWORK FOR AI-ASSISTED DEVELOPMENT
 Battle-tested strategies to keep humans in control of AI-generated code quality
 
-**Version**: 1.4  
+**Version**: 1.4.1  
 **Purpose**: A portable, tool-agnostic set of prompts, rules, and skills that help AI coding assistants (Claude, Cursor, Copilot, etc.) produce production-grade software — not just code that "works."
 
 ## The Problem
