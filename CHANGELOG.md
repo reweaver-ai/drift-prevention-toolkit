@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.2 — The checklist is enforced where the edits are made (October 2026)
+
+- **Fixed:** the checklist was enforced only on the main session. Claude Code's `Stop` hook does not fire for subagents, and a review that hands its work to subagents makes most of its edits there, out of the hook's reach. `--with-hook` now also registers the hook on `SubagentStop`, so a subagent that changed code cannot finish until it has run the checklist.
+- **Fixed:** each session and subagent is judged by its own transcript. A subagent's edits are read from its own transcript (`agent_transcript_path`), so a read-only subagent is never held for edits the main session made, and the reverse.
+- **Added:** subagent cases to `hooks/tests/test-require-checklist.sh`.
+- If you installed 1.4 or 1.4.1 with `--with-hook` into an existing `settings.json`, add the `SubagentStop` entry the installer now prints.
+
 ## 1.4.1 — The checklist hook sees what a session did, not what it could do (October 2026)
 
 - **Fixed:** the Stop hook treated every session as one that edited code. A session transcript lists the tools available (`{"name":"Edit",…}`), and the hook matched those definitions instead of tool calls, so a read-only session was sent back to run the checklist. It now matches only tool calls (`"type":"tool_use"`).

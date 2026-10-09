@@ -27,4 +27,22 @@ run "an edit with the checklist may stop"             allow false "$defs" "$edit
 run "a mention of the checklist is not invoking it"   block false "$defs" "$edit" "$mention"
 run "a session already sent back once may stop"       allow true  "$defs" "$edit"
 
+# SubagentStop: the subagent is judged by its own transcript (agent_transcript_path),
+# never by the main session's, which holds none of the subagent's edits.
+run_sub() { # name, expected, stop_hook_active, main-transcript line, subagent transcript lines...
+  local name="$1" want="$2" active="$3" main="$4"; shift 4
+  printf '%s\n' "$defs" "$main" > "$dir/$name.main.jsonl"
+  printf '%s\n' "$@" > "$dir/$name.sub.jsonl"
+  local out; out="$(printf '{"hook_event_name":"SubagentStop","transcript_path":"%s","agent_transcript_path":"%s","stop_hook_active":%s}' "$dir/$name.main.jsonl" "$dir/$name.sub.jsonl" "$active" | "$hook" 2>/dev/null)"
+  local got=allow; case "$out" in *'"decision":"block"'*) got=block ;; esac
+  if [ "$got" = "$want" ]; then echo "ok   $name"; else echo "FAIL $name: wanted $want, got $got"; fail=1; fi
+  case "$want:$out" in block:*subagent*|allow:*) ;; *) echo "FAIL $name: the reason does not name the subagent"; fail=1 ;; esac
+}
+
+run_sub "a subagent that edited without the checklist is sent back"   block false "$read" "$defs" "$edit"
+run_sub "a subagent that edited and ran the checklist may stop"       allow false "$read" "$defs" "$edit" "$checklist"
+run_sub "a read-only subagent may stop although the session edited"   allow false "$edit" "$defs" "$read"
+run_sub "a subagent already sent back once may stop"                  allow true  "$read" "$defs" "$edit"
+run "the session is not held for edits its subagents made"           allow false "$defs" "$read"
+
 exit $fail

@@ -3,7 +3,7 @@
 #
 #   ./install-claude-skills.sh --user            # ~/.claude/skills and ~/.claude/CLAUDE.md
 #   ./install-claude-skills.sh --project <dir>   # <dir>/.claude/skills and <dir>/CLAUDE.md
-#   add --with-hook to either                    # plus a Stop hook: a session that edited code
+#   add --with-hook to either                    # plus Stop and SubagentStop hooks: a session or subagent that edited code
 #                                                # must invoke the verification checklist first
 #
 # Each skill is its SKILL-*.md with the matching PATCH-*.md applied, and the checklist,
@@ -123,18 +123,18 @@ if [ "$with_hook" = 1 ]; then
   mkdir -p "$(dirname "$hook_file")"
   cp "$here/hooks/drift-toolkit-require-checklist.sh" "$hook_file"
   chmod +x "$hook_file"
+  hook_cmd='{ "hooks": [ { "type": "command", "command": "\"'"$hook_ref"'/drift-toolkit-require-checklist.sh\"" } ] }'
   hook_json='{
   "hooks": {
-    "Stop": [
-      { "hooks": [ { "type": "command", "command": "\"'"$hook_ref"'/drift-toolkit-require-checklist.sh\"" } ] }
-    ]
+    "Stop": [ '"$hook_cmd"' ],
+    "SubagentStop": [ '"$hook_cmd"' ]
   }
 }'
   if [ -e "$settings" ]; then
-    echo "ℹ️  $settings already exists, so it was left alone. Add this Stop hook to it by hand:"
+    echo "ℹ️  $settings already exists, so it was left alone. Add these Stop and SubagentStop hooks to it by hand:"
     echo "$hook_json"
   else
     printf '%s\n' "$hook_json" > "$settings"
-    echo "✔ Stop hook installed: $hook_file, registered in $settings"
+    echo "✔ Stop and SubagentStop hooks installed: $hook_file, registered in $settings"
   fi
 fi
